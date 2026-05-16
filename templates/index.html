@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>🧬 Biometric Security Dashboard</h2>
+
+    <div class="card">
+        <h3>Upload Scan</h3>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="text" name="patient_id" placeholder="Patient ID" required><br><br>
+            <input type="file" name="file" required><br><br>
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h3>Stored Records</h3>
+
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Patient Hash</th>
+                <th>Action</th>
+            </tr>
+
+            {% for record in records %}
+            <tr>
+                <td>{{ record[0] }}</td>
+                <td>{{ record[1][:10] }}...</td>
+                <td>
+                    <a href="/view/{{ record[0] }}">
+                        <button>View</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
